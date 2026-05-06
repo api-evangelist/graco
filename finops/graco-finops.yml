@@ -1,5 +1,6 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
@@ -9,122 +10,58 @@ alignedWith:
 provider: Graco Inc
 providerId: graco
 publisherName: Graco Inc
-serviceCategory: API
+serviceCategory: Industrial Equipment / Manufacturing
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
-  - Fluid Handling
+  - FinOps
+  - FOCUS
   - Manufacturing
   - Industrial
-  - FinOps
-  - Cost Management
-  - FOCUS
-description: FinOps framework definition for the Graco Inc API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+description: 'FOCUS-aligned FinOps for Graco Inc: no public API price book is published. Cost shape
+  is presumed to be a contract-level partner fee plus underlying product / service revenue, not a
+  metered API line item. This document is a placeholder pending direct reconciliation with Graco.'
+notes: No public pricing or billing documentation for Graco APIs. Reconcile when a developer portal
+  with pricing is published.
+sources:
+  - https://www.graco.com
 billingModel:
-  pricingCategory: Usage-Based
-  billingFrequency: Monthly
+  pricingCategory: Negotiated
+  billingFrequency: Per-Invoice
   billingCurrency: USD
   chargeCategories:
-    - Usage
     - Purchase
-    - Tax
-    - Credit
     - Adjustment
-  chargeFrequency: Recurring
 focusColumns:
-  ServiceName: Graco Inc
-  ServiceCategory: Developer Tools / API
+  ServiceName: Graco Inc API
+  ServiceCategory: Industrial Equipment / Manufacturing
   ProviderName: Graco Inc
   PublisherName: Graco Inc
   InvoiceIssuerName: Graco Inc
-  PricingCategory: Usage-Based
-  PricingUnit: request
   BillingCurrency: USD
-  ChargeCategory: Usage
+  ChargeCategory: Purchase
 meters:
   - name: api_requests
-    description: Count of billable API requests
+    description: API request volume (presumed operational metric, not directly billed)
     unit: request
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
-    aggregation: sum
-    dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
-apis:
-  - name: Graco Inc API
-    baseURL: https://api.graco.com
-    tags:
-      - Fluid Handling
-      - Manufacturing
-      - Industrial
-    serviceName: Graco Inc API
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+      - partner
+      - environment
+principles:
+  - name: Visibility
+    description: Until Graco exposes usage telemetry, partners should self-instrument calls to
+      api.graco.com to track consumption.
+  - name: Allocation
+    description: Tag integration code with partner / division so any future Graco invoice can be
+      mapped back to consuming business units.
+  - name: Optimization
+    description: Cache catalog / static data; avoid polling; batch operations when the API supports
+      it.
+  - name: Accountability
+    description: Designate a partner / commercial owner inside the consumer org responsible for the
+      Graco contract and any volume escalations.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
